@@ -7,7 +7,13 @@ The idea behind this was to have a TV on the office wall to display the data. An
 
 This app uses Pusher.com to send the data. There will be a Websocket version also but since Pusher's free account allows up to 100k messages a day im not sure anybody is going to use it.
 
+##Composer
 
+```js
+    "require": {
+		"igormatkovic/laravel-livelogger": "~1.0"
+    }
+```
 ##Setup
 
 In app/config/app.php
