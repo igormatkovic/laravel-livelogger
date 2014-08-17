@@ -57,7 +57,30 @@ return array(
 Or you can just insert the data in your .env.php to keep it more secure
 
 
-Notice: Dont set the log_level to debug. It can slow down the site!
+Once you have added your data, just generate the livelogger dash html
+```bash
+    php artisan laravel-livelogger:generate
+```
+
+
+
+Then just open your $domain.com/livelogger.html to see whats getting logged
+
+I would recomend using that URL as a iframe so you can put it in your custom dashboard.
+
+
+
+Keep in mind. The more log pushes you have the slower the site is going to be! 
+
+This app is for more critical parts of the app.
+
+
+###TO DO
+*   Unit tests.
+*   Sound for critical events.
+*   Secure the URL with a token or something.
+*   Design a better output interface, this one sucks.
+
 
 
 
