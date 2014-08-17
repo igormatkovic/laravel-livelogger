@@ -1,0 +1,26 @@
+{
+    "name": "igormatkovic/laravel-livelogger",
+    "description": "Log and display you app live to your developers",
+    "keywords": ["framework", "laravel", "developers"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Igor Matkovic",
+            "homepage": "http://www.cod3.me",
+            "email": "igor@cod3.me"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "~4.0",
+        "illuminate/log": "~4.0",
+        "illuminate/console": "~4.0",
+        "pusher/pusher-php-server": "~2.1"
+    },
+    "license" : "MIT",
+    "autoload": {
+        "psr-4": {
+            "Igormatkovic\\Livelogger\\": "src/"
+        }
+    }
+}

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Dashboard</title>
+    <style>
+        @import url(//fonts.googleapis.com/css?family=Lato:700);
+
+        body, html {
+            margin:0;
+            padding:0;
+            font-family:'Lato', sans-serif;
+            color: #999;
+            height:100%;
+            width:100%;
+        }
+
+        .notify-dashboard{
+            padding:0;
+            margin:0;
+            width:100%;
+            background: #000;
+            height:100%;
+        }
+        #notify-messages {
+            margin:0;
+            padding:0;
+
+        }
+
+        #notify-messages li{
+            width:100%;
+            clear:both;
+            font-weight: bold;
+        }
+
+        .message{
+            padding:3px;
+            min-height: 30px;
+            font-size:12px;
+        }
+        .level_debug{color:#fff}
+        .level_info{color:#4bb1b1}
+        .level_notice{color:#8ed9f6}
+        .level_warning{color:#bcd42a}
+        .level_error{font-size:14px; color:#f5aca6}
+        .level_emergency{font-size:16px; color:#c00}
+        .level_live{color:#4288CE}
+
+        a, a:visited {
+            text-decoration:none;
+        }
+
+    </style>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <script src="//js.pusher.com/2.2/pusher.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        var pusher = new Pusher('{{ pusher_api_key }}');
+        var channel = pusher.subscribe('livelogger');
+        channel.bind('log', function(data) {
+            console.log(data);
+            $('#notify-messages').prepend('<li class="message level_'+data.level+'">['+data.date+'] '+data.message+'</li>');
+        });
+    </script>
+</head>
+
+
+</head>
+<body>
+<div class="notify-dashboard">
+    <ul id="notify-messages">
+
+    </ul>
+</div>
+</body>
+</html>
