@@ -38,7 +38,7 @@ class LiveloggerGenerateCommand extends Command
 
         file_put_contents('public/livelogger.html', $template);
 
-        $this->line('Generated to : public/dash.html');
+        $this->line('Generated to : public/livelogger.html');
 
 
     }
