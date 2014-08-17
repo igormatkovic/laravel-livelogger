@@ -14,7 +14,7 @@ class LiveloggerServiceProvider extends LogServiceProvider {
      */
     public function boot()
     {
-        $this->package('igormatkovic/livelogger');
+        $this->package('igormatkovic/laravel-livelogger');
     }
 
     /**

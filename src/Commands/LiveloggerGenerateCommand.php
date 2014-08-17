@@ -21,7 +21,7 @@ class LiveloggerGenerateCommand extends Command
     {
         parent::__construct();
 
-        Config::package('igormatkovic/livelogger', 'livelogger');
+        Config::package('igormatkovic/laravel-livelogger', 'laravel-livelogger');
     }
 
     /**
@@ -32,7 +32,7 @@ class LiveloggerGenerateCommand extends Command
     public function fire()
     {
 
-        $pusher_api_key = Config::get('livelogger::pusher_api_key');
+        $pusher_api_key = Config::get('laravel-livelogger::pusher_api_key');
 
         $template = str_replace('{{ pusher_api_key }}', $pusher_api_key, file_get_contents(__DIR__.'/../Template/dashboard.html'));
 

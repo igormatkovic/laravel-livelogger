@@ -42,7 +42,7 @@ class Livelogger extends Writer
             $this->dispatcher = $dispatcher;
         }
 
-        Config::package('igormatkovic/livelogger', 'livelogger');
+        Config::package('igormatkovic/laravel-livelogger', 'laravel-livelogger');
 
         $this->loadPusher();
 
@@ -85,7 +85,7 @@ class Livelogger extends Writer
 
         if (self::isLoggable($message['level'])) {
 
-            $message['date'] = date(Config::get('livelogger::dateformat'));
+            $message['date'] = date(Config::get('laravel-livelogger::dateformat'));
 
             $this->pusher->trigger('livelogger', 'log', $message);
         }
@@ -99,11 +99,11 @@ class Livelogger extends Writer
     {
         if (!$this->pusher) {
 
-            $app_id = Config::get('livelogger::pusher_app_id', false);
-            $app_key = Config::get('livelogger::pusher_api_key', false);
-            $app_secret = Config::get('livelogger::pusher_api_secret', false);
+            $app_id = Config::get('laravel-livelogger::pusher_app_id', false);
+            $app_key = Config::get('laravel-livelogger::pusher_api_key', false);
+            $app_secret = Config::get('laravel-livelogger::pusher_api_secret', false);
 
-            if (Config::get('livelogger::pusher_use_ssl', false)) {
+            if (Config::get('laravel-livelogger::pusher_use_ssl', false)) {
                 $this->pusher = new \Pusher($app_key, $app_secret, $app_id, false, 'https://api.pusherapp.com', 443);
             } else {
                 $this->pusher = new \Pusher($app_key, $app_secret, $app_id);
@@ -163,7 +163,7 @@ class Livelogger extends Writer
      */
     private function isLoggable($level)
     {
-        $log_level = Config::get('livelogger::log_level', 'info');
+        $log_level = Config::get('laravel-livelogger::log_level', 'info');
 
         if (self::parseLevel($level) >= self::parseLevel($log_level)) {
             return true;
