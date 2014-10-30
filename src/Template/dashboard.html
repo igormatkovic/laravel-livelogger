@@ -60,7 +60,6 @@
         var pusher = new Pusher('{{ pusher_api_key }}');
         var channel = pusher.subscribe('livelogger');
         channel.bind('log', function(data) {
-            console.log(data);
             $('#notify-messages').prepend('<li class="message level_'+data.level+'">['+data.date+'] '+data.message+'</li>');
         });
     </script>

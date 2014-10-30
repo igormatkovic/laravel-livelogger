@@ -10,10 +10,11 @@
 
 return array(
 
-    'log_level'         => 'notice',
-    'dateformat'        => 'H:i:s',
-    'pusher_app_id'    => (getenv('pusher_app_id') ?: 'my_pusher_app_id'),
-    'pusher_api_key'    => (getenv('pusher_api_key') ?: 'my_pusher_api_key'),
-    'pusher_api_secret'    => (getenv('pusher_api_secret') ?: 'my_pusher_api_secret'),
-    'pusher_use_ssl'    => false
+    'log_level'         => (getenv('log_level') ?: 'error'),
+    'dateformat'        => (getenv('dateformat') ?: 'H:i:s'),
+    'channel_name'      => (getenv('channel_name') ?: 'livelogger'),
+    'pusher_app_id'     => (getenv('pusher_app_id') ?: 'pusher_app_id'),
+    'pusher_api_key'    => (getenv('pusher_api_key') ?: 'pusher_api_key'),
+    'pusher_api_secret' => (getenv('pusher_api_secret') ?: 'pusher_api_secret'),
+    'pusher_use_ssl'    => (getenv('pusher_use_ssl') ?: false),
 );

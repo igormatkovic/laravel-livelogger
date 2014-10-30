@@ -26,7 +26,8 @@ class Livelogger extends Writer
         'error',
         'critical',
         'alert',
-        'emergency'
+        'emergency',
+        'live'
     );
 
     /**
@@ -69,7 +70,7 @@ class Livelogger extends Writer
         // If the event dispatcher is set, we will pass along the parameters to the
         // log listeners. These are useful for building profilers or other tools
         // that aggregate all of the log messages for a given "request" cycle.
-        if (isset($this->dispatcher)) {
+        if (isset($this->dispatcher) && $level != 'live') {
             $this->dispatcher->fire('illuminate.log', $message);
         }
     }
@@ -85,9 +86,10 @@ class Livelogger extends Writer
 
         if (self::isLoggable($message['level'])) {
 
+
             $message['date'] = date(Config::get('laravel-livelogger::dateformat'));
 
-            $this->pusher->trigger('livelogger', 'log', $message);
+            return $this->pusher->trigger(Config::get('laravel-livelogger::channel_name', 'livelogger'), 'log', $message);
         }
     }
 
@@ -97,6 +99,7 @@ class Livelogger extends Writer
      */
     private function loadPusher()
     {
+
         if (!$this->pusher) {
 
             $app_id = Config::get('laravel-livelogger::pusher_app_id', false);
@@ -166,11 +169,31 @@ class Livelogger extends Writer
         $log_level = Config::get('laravel-livelogger::log_level', 'info');
 
         if (self::parseLevel($level) >= self::parseLevel($log_level)) {
+
             return true;
         }
 
         return false;
 
+    }
+
+
+    /**
+     * Call Monolog with the given method and parameters.
+     *
+     * @param  string  $method
+     * @param  mixed   $parameters
+     * @return mixed
+     */
+    protected function callMonolog($method, $parameters)
+    {
+        if($method != 'addLive') {
+            if (is_array($parameters[0])) {
+                $parameters[0] = json_encode($parameters[0]);
+            }
+
+            return call_user_func_array(array($this->monolog, $method), $parameters);
+        }
     }
 
 }

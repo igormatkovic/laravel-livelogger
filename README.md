@@ -52,28 +52,46 @@ And insert your app data from Pusher.com
 ```php
 return array(
 
-    'log_level'         => 'notice',
-    'dateformat'        => 'H:i:s',
-    'pusher_app_id'     => (getenv('pusher_app_id') ?: 'my_pusher_app_id'),
-    'pusher_api_key'    => (getenv('pusher_api_key') ?: 'my_pusher_api_key'),
-    'pusher_api_secret' => (getenv('pusher_api_secret') ?: 'my_pusher_api_secret'),
-    'pusher_use_ssl'    => false
+    'log_level'         => (getenv('log_level') ?: 'error'),
+    'dateformat'        => (getenv('dateformat') ?: 'H:i:s'),
+    'channel_name'      => (getenv('channel_name') ?: 'livelogger'),
+    'pusher_app_id'     => (getenv('pusher_app_id') ?: 'pusher_app_id'),
+    'pusher_api_key'    => (getenv('pusher_api_key') ?: 'pusher_api_key'),
+    'pusher_api_secret' => (getenv('pusher_api_secret') ?: 'pusher_api_secret'),
+    'pusher_use_ssl'    => (getenv('pusher_use_ssl') ?: false),
 );
 ```
-Or you can just insert the data in your .env.php to keep it more secure
+Or you can just insert the data in your .env.php to keep it out of GIT
 
 
 Once you have added your data, just generate the livelogger dash html
 ```bash
-    php artisan laravel-livelogger:generate
+    php artisan livelogger:generate
 ```
 
 
 
 Then just open your $domain.com/livelogger.html to see whats getting logged
 
-I would recomend using that URL as a iframe so you can put it in your custom dashboard.
+I would recommend using that URL as a iframe so you can put it in your custom dashboard.
 
+But you cna just integrate it directly into your own view:
+
+
+
+```html
+<script src="//js.pusher.com/2.2/pusher.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+    var pusher = new Pusher('{{ $pusher_api_key }}');
+    var channel = pusher.subscribe('{{ $chanel_name }}');
+    channel.bind('log', function(data) {
+        $('#notify-messages').prepend('<li class="message level_'+data.level+'">['+data.date+'] '+data.message+'</li>');
+    });
+</script>
+```
+
+Don't forget to set your chanel_name and pusher_api_key
 
 
 Keep in mind. The more log pushes you have the slower the site is going to be! 
