@@ -75,7 +75,7 @@ Then just open your $domain.com/livelogger.html to see whats getting logged
 
 I would recommend using that URL as a iframe so you can put it in your custom dashboard.
 
-But you cna just integrate it directly into your own view:
+But you can just integrate it directly into your own view:
 
 
 
